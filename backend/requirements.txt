@@ -36,5 +36,5 @@ gunicorn
 gdown
 flask
 flask-cors
-requests
+
 
