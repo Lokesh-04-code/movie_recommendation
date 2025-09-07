@@ -83,7 +83,7 @@ function App() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
-        paddingTop: "50px",
+        padding: "50px 20px",
         fontFamily: "'Arial', sans-serif",
         background: "linear-gradient(135deg, #667eea, #764ba2, #f64f59)",
         color: "#fff",
@@ -91,17 +91,16 @@ function App() {
     >
       <h1
         style={{
-          fontSize: "3rem",
-          marginBottom: "40px",
+          fontSize: "2.5rem",
+          marginBottom: "30px",
+          textAlign: "center",
           textShadow: "2px 2px 8px rgba(0,0,0,0.5)",
         }}
       >
         🎬 Movie Recommender System
       </h1>
 
-      <div
-        style={{ marginBottom: "30px", position: "relative", width: "320px" }}
-      >
+      <div style={{ marginBottom: "30px", width: "100%", maxWidth: "400px" }}>
         <input
           type="text"
           value={selected}
@@ -114,12 +113,13 @@ function App() {
             borderRadius: "8px",
             border: "none",
             outline: "none",
+            boxSizing: "border-box",
           }}
         />
         <button
           onClick={handleRecommend}
           style={{
-            padding: "12px 25px",
+            padding: "12px",
             fontSize: "16px",
             backgroundColor: "#ffb347",
             backgroundImage: "linear-gradient(45deg, #ffb347, #ffcc33)",
@@ -127,7 +127,7 @@ function App() {
             borderRadius: "8px",
             cursor: "pointer",
             marginTop: "10px",
-            width: "108%",
+            width: "100%",
             transition: "transform 0.2s",
           }}
           onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
@@ -136,23 +136,20 @@ function App() {
           Recommend
         </button>
 
-        {/* Suggestions */}
         {suggestions.length > 0 && (
           <ul
             style={{
-              position: "absolute",
-              top: "42px",
-              left: 0,
+              marginTop: "5px",
               width: "100%",
               background: "#fff",
               color: "#333",
               borderRadius: "8px",
               listStyle: "none",
               padding: "5px 0",
-              margin: 0,
               boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-              zIndex: 100,
               animation: "slideDown 0.3s ease",
+              maxHeight: "200px",
+              overflowY: "auto",
             }}
           >
             {suggestions.map((movie) => (
@@ -163,7 +160,6 @@ function App() {
                   padding: "10px",
                   cursor: "pointer",
                   transition: "background 0.2s",
-                  backgroundColor: "grey",
                 }}
                 onMouseEnter={(e) => (e.target.style.background = "#eee")}
                 onMouseLeave={(e) => (e.target.style.background = "#fff")}
@@ -186,7 +182,7 @@ function App() {
       <div
         style={{
           display: "flex",
-          gap: "20px",
+          gap: "15px",
           flexWrap: "wrap",
           justifyContent: "center",
         }}
@@ -199,7 +195,8 @@ function App() {
               backgroundColor: "rgba(255,255,255,0.1)",
               padding: "10px",
               borderRadius: "10px",
-              width: "150px",
+              width: "calc(50% - 15px)",
+              maxWidth: "150px",
               transition: "transform 0.3s, box-shadow 0.3s, opacity 0.5s",
               opacity: 0,
               animation: `fadeIn 0.5s ease forwards`,
@@ -214,16 +211,18 @@ function App() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            <p style={{ fontWeight: "bold" }}>{rec.title}</p>
+            <p style={{ fontWeight: "bold", fontSize: "0.9rem" }}>
+              {rec.title}
+            </p>
             {rec.poster ? (
               <img
                 src={rec.poster}
                 alt={rec.title}
-                width="150"
-                style={{ borderRadius: "8px" }}
+                width="100%"
+                style={{ borderRadius: "8px", objectFit: "cover" }}
               />
             ) : (
-              <p>No Poster</p>
+              <p style={{ fontSize: "0.8rem" }}>No Poster</p>
             )}
           </div>
         ))}
@@ -233,6 +232,12 @@ function App() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+          h1 { font-size: 2rem; }
+          div[style*="max-width: 400px"] { width: 100%; }
+          div[style*="calc(50% - 15px)"] { width: 100%; max-width: 100%; }
         }
       `}</style>
     </div>
